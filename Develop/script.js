@@ -21,3 +21,52 @@ $(function () {
     //
     // TODO: Add code to display the current date in the header of the page.
   });
+
+  const d = new Date();
+  document.getElementById("currentDay").innerHTML = d;
+
+
+
+const rows = document.getElementsByClassName("row");
+let currentHour = parseInt(moment().format('H'));
+
+Array.from(rows).forEach(row => {
+  let
+    rowIdString = row.id,
+    rowHour;
+  if (rowIdString) {
+    rowHour = parseInt(rowIdString);
+  }
+  if (rowHour) {
+    
+    if (currentHour === rowHour) {
+      setColor(row, "#ff6961");
+    } else if ((currentHour < rowHour) && (currentHour > rowHour - 6)) {
+      setColor(row, "#77dd77");
+    } else if ((currentHour > rowHour) && (currentHour < rowHour + 6)) {
+      setColor(row, "#d3d3d3");
+    } else {
+      setColor(row, "white");
+    }
+  }
+});
+
+function setColor(element, color) {
+  element.style.backgroundColor = color;
+}
+
+
+
+  $(document).ready (function () {
+    $("*[data-store]").each(function () {
+      $(this).val(localStorage.getItem("item-" + $(this).attr("data-store")));
+    });
+
+    $("*[data-store]").on("keyup", function (itm) {
+      localStorage.setItem ("item-" + $(this).attr("data-store"), $(this).val());
+    })
+  })
+
+  $( "#save" ).click(function() {
+    alert( "Appointment Added to" + localStorage );
+  });
